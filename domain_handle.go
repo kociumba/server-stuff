@@ -80,10 +80,10 @@ func DomainHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if req.Name == "balls" {
-			response.Message = "https://www.youtube.com/watch?v=Ke0Li-babo4"
+			response.Message = "https://www.youtube.com/watch?v=Ke0Li-babo4 " + "balls aquierd"
 			is_balls <- true
 		} else {
-			response.Message = "hello " + req.Name
+			response.Message = "hello " + req.Name + ", where are your balls ???"
 		}
 
 		jsonResponse, err := json.Marshal(response)
