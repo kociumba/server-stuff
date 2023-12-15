@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 
@@ -20,9 +21,15 @@ func onReady() {
 	// 	panic(err)
 	// }
 
-	icon, err := http.Get("https://raw.githubusercontent.com/getlantern/systray/main/icon.ico")
+	resp, err := http.Get("https://raw.githubusercontent.com/kociumba/server-stuff/main/icon.ico")
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
 
-	systray.SetIcon([]byte(icon))
+	icon, err := io.ReadAll(resp.Body)
+
+	systray.SetIcon(icon)
 	systray.SetTooltip("balls")
 	exitApp := systray.AddMenuItem("Exit", "Exit the app")
 	go func() {
